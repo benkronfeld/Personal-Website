@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ben Kronfeld</title>
-  <meta name="description" content="Ben Kronfeld is a business analytics and marketing student at Lehigh University who builds things with AI and is interested in health tech and startups.">
+  <meta name="description" content="Ben Kronfeld is an aspiring health tech founder and content creator, currently a student at Lehigh University.">
   <meta property="og:title" content="Ben Kronfeld">
-  <meta property="og:description" content="Ben Kronfeld is a business analytics and marketing student at Lehigh University who builds things with AI and is interested in health tech and startups.">
+  <meta property="og:description" content="Ben Kronfeld is an aspiring health tech founder and content creator, currently a student at Lehigh University.">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main>
-    <h1>Ben Kronfeld</h1>
+    <h1>Ben Kr<button type="button" class="o" aria-label="Toggle dark mode" aria-pressed="false">o</button>nfeld</h1>
     <p>Aspiring health tech founder and content creator. Current student at Lehigh University. Reach out: <a href="mailto:ben.e.kronfeld@gmail.com">ben.e.kronfeld@gmail.com</a></p>
     <nav>
       <a href="https://www.linkedin.com/in/benkronfeld" target="_blank" rel="noopener">LinkedIn</a>
@@ -22,5 +22,13 @@
       <a href="assets/benkronfeldresumeoctober.pdf" target="_blank" rel="noopener">Resume</a>
     </nav>
   </main>
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('.o');
+    toggle.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      toggle.setAttribute('aria-pressed', root.classList.contains('dark'));
+    });
+  </script>
 </body>
 </html>

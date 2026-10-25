@@ -2,7 +2,7 @@
 
 The one-page personal site for Ben Kronfeld: a short bio, a reach-out email address, and links to LinkedIn, Instagram, GitHub, and Resume.
 
-Plain HTML and CSS. No framework, no build step, no dependencies, no JavaScript.
+Plain HTML and CSS with one small inline script: clicking the `o` in the name toggles light and dark mode. No framework, no build step, no dependencies.
 
 ## Files
 
@@ -35,5 +35,4 @@ Every push to `main` then deploys automatically.
 
 ## Pending
 
-- `assets/benkronfeldresumeoctober.pdf` still needs to be added. Until then the Resume link returns 404.
 - Add `og:url` (and optionally `og:image`) to `index.html` once Vercel assigns the live URL, then re-scrape the link with LinkedIn Post Inspector.

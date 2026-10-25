@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project state
 
-V1 is built and pushed. `personal_website_project_spec.md` remains the authoritative source for product requirements, content, markup structure, styling, and deployment. The site is a static `index.html` + `style.css` pair, initialized as a git repo with `main` tracking `https://github.com/benkronfeld/Personal-Website`.
+V1 is built and pushed. `personal_website_project_spec.md` remains the authoritative source for product requirements, content, markup structure, styling, and deployment. The site is a static `index.html` + `style.css` pair with one small inline script for the theme toggle, initialized as a git repo with `main` tracking `https://github.com/benkronfeld/Personal-Website`.
 
-Two V1 items are still pending and are owned by the user: adding `assets/benkronfeldresumeoctober.pdf` (the Resume link 404s until it exists) and importing the repo into Vercel (no Vercel CLI is installed; deployment is done in the dashboard).
+One V1 item is still pending and owned by the user: importing the repo into Vercel (no Vercel CLI is installed; deployment is done in the dashboard). The resume PDF is present at `assets/benkronfeldresumeoctober.pdf`.
 
 When working here, treat the spec as the contract and implement against it — do not invent pages, sections, or links beyond what V1 scopes.
 
@@ -37,10 +37,11 @@ Vercel serves files straight from the repository root with no transformation. Th
 index.html
 ├── <head>      title, meta description, viewport, Open Graph tags   → social share previews
 ├── <main>
-│   ├── <h1>    name
+│   ├── <h1>    name; the "o" is a button that toggles dark mode
 │   ├── <p>     bio plus reach-out email (mailto)
 │   └── <nav>   LinkedIn · Instagram · GitHub · Resume
-└── <link>      style.css                                            → all presentation
+├── <link>      style.css                                            → all presentation
+└── <script>    inline theme toggle (.dark on <html>)
 ```
 
 The separation is strict: `index.html` owns content and semantics, `style.css` owns every visual decision, and `assets/` holds binaries. Nothing crosses those boundaries — no inline styles, no content in CSS, no HTML strings anywhere else.
@@ -62,7 +63,7 @@ The deploy step is a no-op build: Vercel copies the repo and publishes it. This 
 **Architectural invariants** (violating any of these changes the deployment model, not just the code):
 
 - Zero dependencies and zero build step. No package manager, no bundler, no framework. Every dependency added creates a build requirement Vercel was not configured for.
-- Zero runtime logic. No scripts in V1; if behavior is needed later, that is a deliberate scope change against the spec.
+- Exactly one small inline script: clicking the `o` in the name toggles a `.dark` class on `<html>`. Keep runtime logic to this; no libraries, frameworks, or build step.
 - No font downloads. Times New Roman is a system font — a webfont would add a network request to the critical path and work against the sub-second load target.
 - All paths are relative (`assets/...`, `style.css`) so the site works identically at a `*.vercel.app` URL and under a future custom domain without rewrites.
 
@@ -96,16 +97,18 @@ Alternatively `npx serve .`. Vercel will serve `index.html` from the repo root; 
 
 Everything lives in two files plus an asset directory:
 
-- `index.html` — a single `<main>` containing `<h1>`, one `<p>` with the bio and the reach-out email inline, and a `<nav>` of four links. Semantic tags only.
+- `index.html` — a single `<main>` containing `<h1>` (with the theme-toggle `o`), one `<p>` with the bio and the reach-out email inline, and a `<nav>` of four links, plus the inline theme script. Semantic tags otherwise.
 - `style.css` — loaded by `index.html`; contains all presentation. No inline styles.
 
 Constraints that matter and are easy to violate accidentally:
 
 - **Visual identity is fixed:** white background (`#fff`), black text (`#000`), `"Times New Roman", Times, serif`, centered text in a centered column (`max-width` ~600px) that is also vertically centered in the viewport via flexbox, base font size ~18px using `rem`, side padding of at least `1rem` on mobile.
+- **Themes:** light is the default (`--bg: #fff`, `--fg: #000`); `.dark` on `<html>` swaps them to `#000` / `#fff`. Every page color comes from those two custom properties, so the whole page flips. No transitions.
+- **The `o` toggle is intentionally undiscoverable:** no underline, no pointer cursor, no hover change. Only a keyboard `:focus-visible` outline reveals it.
 - **No animations and no transitions.** Hover treatment is limited to a simple underline or opacity change; links stay black.
 - **Links:** nav order is LinkedIn, Instagram, GitHub, Resume. All four use `target="_blank" rel="noopener"`; Resume points at `assets/benkronfeldresumeoctober.pdf`. Links are spaced with flex `gap`, never separator characters. The email is not in the nav: it appears inline at the end of the bio paragraph as `Reach out: <mailto>`.
 - **Head metadata is required, not optional:** `<meta name="viewport">`, a `<title>`, a meta description, and Open Graph title + description so LinkedIn shares preview correctly.
-- **Resume asset:** the source upload has a prefixed, space-containing filename. Copy it into `assets/` as `benkronfeldresumeoctober.pdf` — never link to a filename with spaces or the timestamp prefix.
+- **Resume asset:** `assets/benkronfeldresumeoctober.pdf` is present and served as `application/pdf`. Replace it in place with the same exact lowercase name; never introduce spaces, capitalization, or the timestamp prefix from source uploads.
 - **Success means four working links, a resume PDF that opens in a new tab, no horizontal scroll on mobile, and sub-second load.** Anything that adds weight (frameworks, fonts to download, scripts) works against that.
 
 Content is fixed: the bio is the short copy currently in `index.html`, and the link list is exactly LinkedIn, Instagram, GitHub, Resume with the email inline at the end of the bio paragraph. This supersedes the spec's §1.5 link table (Resume, GitHub, LinkedIn, Email) per an explicit user change; do not revert to the spec's list. Side ventures and content accounts beyond the approved Instagram link, a blog, a portfolio, an on-page resume section, analytics, and contact forms remain out of scope for V1. Bio wording may be refined iteratively, but do not add claims not supported by the resume.
