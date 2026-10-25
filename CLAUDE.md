@@ -73,7 +73,9 @@ The deploy step is a no-op build: Vercel copies the repo and publishes it. This 
 index.html
 style.css
 assets/benkronfeldresumeoctober.pdf
-favicon.ico            (optional)
+assets/favicon-192.png
+assets/apple-touch-icon.png
+favicon.ico
 personal_website_project_spec.md
 README.md
 ```
@@ -107,7 +109,8 @@ Constraints that matter and are easy to violate accidentally:
 - **The `o` toggle is intentionally undiscoverable:** no underline, no pointer cursor, no hover change. Only a keyboard `:focus-visible` outline reveals it.
 - **No animations and no transitions.** Hover treatment is limited to a simple underline or opacity change; links stay black.
 - **Links:** nav order is LinkedIn, Instagram, GitHub, Resume. All four use `target="_blank" rel="noopener"`; Resume points at `assets/benkronfeldresumeoctober.pdf`. Links are spaced with flex `gap`, never separator characters. The email is not in the nav: it appears inline at the end of the bio paragraph as `Reach out: <mailto>`.
-- **Head metadata is required, not optional:** `<meta name="viewport">`, a `<title>`, a meta description, and Open Graph title + description so LinkedIn shares preview correctly.
+- **Head metadata is required, not optional:** `<meta name="viewport">`, a `<title>`, a meta description, Open Graph title + description so LinkedIn shares preview correctly, and the three icon links.
+- **Icons:** a square face crop of the portrait rendered to `favicon.ico` (32px, kept at the repo root so `/favicon.ico` resolves), `assets/favicon-192.png`, and `assets/apple-touch-icon.png` (180px).
 - **Resume asset:** `assets/benkronfeldresumeoctober.pdf` is present and served as `application/pdf`. Replace it in place with the same exact lowercase name; never introduce spaces, capitalization, or the timestamp prefix from source uploads.
 - **Success means four working links, a resume PDF that opens in a new tab, no horizontal scroll on mobile, and sub-second load.** Anything that adds weight (frameworks, fonts to download, scripts) works against that.
 

@@ -9,8 +9,11 @@ Plain HTML and CSS with one small inline script: clicking the `o` in the name to
 ```
 index.html
 style.css
-assets/benkronfeldresumeoctober.pdf   (resume, served as a download/open-in-new-tab)
-personal_website_project_spec.md      (product + technical spec)
+favicon.ico                            (32px browser icon)
+assets/benkronfeldresumeoctober.pdf    (resume, opens in a new tab)
+assets/favicon-192.png                 (high-resolution browser icon)
+assets/apple-touch-icon.png            (iOS home-screen icon)
+personal_website_project_spec.md       (product + technical spec)
 ```
 
 ## Local preview
