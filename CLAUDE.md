@@ -12,7 +12,7 @@ When working here, treat the spec as the contract and implement against it — d
 
 ## What this is
 
-A one-page personal site for Ben Kronfeld, reachable from social/LinkedIn/resume traffic. A visitor sees a 3-sentence builder-first bio and four links (Resume PDF, GitHub, LinkedIn, Email) and nothing else. No navigation, no accounts, no learning curve.
+A one-page personal site for Ben Kronfeld, reachable from social/LinkedIn/resume traffic. A visitor sees a short bio, a reach-out email line, and four links (LinkedIn, Instagram, GitHub, Resume) and nothing else. No navigation, no accounts, no learning curve.
 
 Stack: plain HTML and CSS, no framework, no build step, no dependencies, no JS in V1. Hosted on Vercel from a GitHub repo, with auto-deploy on push to `main`. Custom domain is deferred.
 
@@ -38,8 +38,9 @@ index.html
 ├── <head>      title, meta description, viewport, Open Graph tags   → social share previews
 ├── <main>
 │   ├── <h1>    name
-│   ├── <p>     3-sentence bio
-│   └── <nav>   Resume · GitHub · LinkedIn · Email
+│   ├── <p>     short bio
+│   ├── <p>     reach-out email (mailto)
+│   └── <nav>   LinkedIn · Instagram · GitHub · Resume
 └── <link>      style.css                                            → all presentation
 ```
 
@@ -96,19 +97,19 @@ Alternatively `npx serve .`. Vercel will serve `index.html` from the repo root; 
 
 Everything lives in two files plus an asset directory:
 
-- `index.html` — a single `<main>` containing `<h1>`, the bio `<p>`, and a `<nav>` of four links. Semantic tags only.
+- `index.html` — a single `<main>` containing `<h1>`, the bio `<p>`, a contact `<p>` with the email, and a `<nav>` of four links. Semantic tags only.
 - `style.css` — loaded by `index.html`; contains all presentation. No inline styles.
 
 Constraints that matter and are easy to violate accidentally:
 
-- **Visual identity is fixed:** white background (`#fff`), black text (`#000`), `"Times New Roman", Times, serif`, centered text in a centered column (`max-width` ~600px), base font size ~18px using `rem`, generous vertical padding, side padding of at least `1rem` on mobile.
+- **Visual identity is fixed:** white background (`#fff`), black text (`#000`), `"Times New Roman", Times, serif`, centered text in a centered column (`max-width` ~600px) that is also vertically centered in the viewport via flexbox, base font size ~18px using `rem`, side padding of at least `1rem` on mobile.
 - **No animations and no transitions.** Hover treatment is limited to a simple underline or opacity change; links stay black.
-- **Links:** Resume uses `href="assets/benkronfeldresumeoctober.pdf"` with `target="_blank" rel="noopener"`. GitHub and LinkedIn also open in a new tab with `rel="noopener"`. Email is `mailto:ben.e.kronfeld@gmail.com`.
+- **Links:** nav order is LinkedIn, Instagram, GitHub, Resume. All four use `target="_blank" rel="noopener"`; Resume points at `assets/benkronfeldresumeoctober.pdf`. Links are spaced with flex `gap`, never separator characters. The email is not in the nav: it appears above it as `Reach out: <mailto>` in a `.contact` paragraph.
 - **Head metadata is required, not optional:** `<meta name="viewport">`, a `<title>`, a meta description, and Open Graph title + description so LinkedIn shares preview correctly.
 - **Resume asset:** the source upload has a prefixed, space-containing filename. Copy it into `assets/` as `benkronfeldresumeoctober.pdf` — never link to a filename with spaces or the timestamp prefix.
 - **Success means four working links, a resume PDF that opens in a new tab, no horizontal scroll on mobile, and sub-second load.** Anything that adds weight (frameworks, fonts to download, scripts) works against that.
 
-Content is also fixed by the spec: the bio is a 3-sentence draft that leads with building, and the link list is exactly Resume, GitHub, LinkedIn, Email. Side ventures, content accounts, a blog, a portfolio, an on-page resume section, analytics, and contact forms are explicitly out of scope for V1. The spec notes bio wording may be refined iteratively before build — treat wording changes as in-scope, but do not add new claims not supported by the resume.
+Content is fixed: the bio is the short copy currently in `index.html`, and the link list is exactly LinkedIn, Instagram, GitHub, Resume with the email in the contact line above. This supersedes the spec's §1.5 link table (Resume, GitHub, LinkedIn, Email) per an explicit user change; do not revert to the spec's list. Side ventures and content accounts beyond the approved Instagram link, a blog, a portfolio, an on-page resume section, analytics, and contact forms remain out of scope for V1. Bio wording may be refined iteratively, but do not add claims not supported by the resume.
 
 ## Deployment
 

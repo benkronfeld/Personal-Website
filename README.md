@@ -1,6 +1,6 @@
 # Personal Website
 
-The one-page personal site for Ben Kronfeld: a short bio and links to Resume, GitHub, LinkedIn, and Email.
+The one-page personal site for Ben Kronfeld: a short bio, a reach-out email address, and links to LinkedIn, Instagram, GitHub, and Resume.
 
 Plain HTML and CSS. No framework, no build step, no dependencies, no JavaScript.
 
