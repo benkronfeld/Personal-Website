@@ -37,7 +37,7 @@ Vercel serves files straight from the repository root with no transformation. Th
 index.html
 ├── <head>      title, meta description, viewport, Open Graph tags   → social share previews
 ├── <main>
-│   ├── <h1>    name; the "o" is a button that toggles dark mode
+│   ├── <h1>    name; the "B" is a button that toggles dark mode
 │   ├── <p>     bio plus reach-out email (mailto)
 │   └── <nav>   LinkedIn · Instagram · GitHub · Resume
 ├── <link>      style.css                                            → all presentation
@@ -63,7 +63,7 @@ The deploy step is a no-op build: Vercel copies the repo and publishes it. This 
 **Architectural invariants** (violating any of these changes the deployment model, not just the code):
 
 - Zero dependencies and zero build step. No package manager, no bundler, no framework. Every dependency added creates a build requirement Vercel was not configured for.
-- Exactly one small inline script: clicking the `o` in the name toggles a `.dark` class on `<html>`. Keep runtime logic to this; no libraries, frameworks, or build step.
+- Exactly one small inline script: clicking the `B` in the name toggles a `.dark` class on `<html>`. Keep runtime logic to this; no libraries, frameworks, or build step.
 - No font downloads. Times New Roman is a system font — a webfont would add a network request to the critical path and work against the sub-second load target.
 - All paths are relative (`assets/...`, `style.css`) so the site works identically at a `*.vercel.app` URL and under a future custom domain without rewrites.
 
@@ -99,14 +99,14 @@ Alternatively `npx serve .`. Vercel will serve `index.html` from the repo root; 
 
 Everything lives in two files plus an asset directory:
 
-- `index.html` — a single `<main>` containing `<h1>` (with the theme-toggle `o`), one `<p>` with the bio and the reach-out email inline, and a `<nav>` of four links, plus the inline theme script. Semantic tags otherwise.
+- `index.html` — a single `<main>` containing `<h1>` (with the theme-toggle `B`), one `<p>` with the bio and the reach-out email inline, and a `<nav>` of four links, plus the inline theme script. Semantic tags otherwise.
 - `style.css` — loaded by `index.html`; contains all presentation. No inline styles.
 
 Constraints that matter and are easy to violate accidentally:
 
-- **Visual identity is fixed:** white background (`#fff`), black text (`#000`), `"Times New Roman", Times, serif`, centered text in a centered column (`max-width` ~600px) that is also vertically centered in the viewport via flexbox, base font size ~18px using `rem`, side padding of at least `1rem` on mobile.
+- **Visual identity is fixed:** white background (`#fff`), black text (`#000`), `"Times New Roman", Times, serif`, centered text in a centered column (`max-width` ~640px) that is also vertically centered in the viewport via flexbox, base font size ~18px using `rem`, side padding of at least `1rem` on mobile.
 - **Themes:** light is the default (`--bg: #fff`, `--fg: #000`); `.dark` on `<html>` swaps them to `#000` / `#fff`. Every page color comes from those two custom properties, so the whole page flips. No transitions.
-- **The `o` toggle is intentionally undiscoverable:** no underline, no pointer cursor, no hover change. Only a keyboard `:focus-visible` outline reveals it.
+- **The `B` toggle is intentionally undiscoverable:** no underline, no pointer cursor, no hover change. Only a keyboard `:focus-visible` outline reveals it.
 - **No animations and no transitions.** Hover treatment is limited to a simple underline or opacity change; links stay black.
 - **Links:** nav order is LinkedIn, Instagram, GitHub, Resume. All four use `target="_blank" rel="noopener"`; Resume points at `assets/benkronfeldresumeoctober.pdf`. Links are spaced with flex `gap`, never separator characters. The email is not in the nav: it appears inline at the end of the bio paragraph as `Reach out: <mailto>`.
 - **Head metadata is required, not optional:** `<meta name="viewport">`, a `<title>`, a meta description, Open Graph title + description so LinkedIn shares preview correctly, and the three icon links.

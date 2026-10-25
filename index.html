@@ -15,8 +15,9 @@
 </head>
 <body>
   <main>
-    <h1>Ben Kr<button type="button" class="o" aria-label="Toggle dark mode" aria-pressed="false">o</button>nfeld</h1>
-    <p>Aspiring health tech founder and content creator. Current student at Lehigh University. Reach out: <a href="mailto:ben.e.kronfeld@gmail.com">ben.e.kronfeld@gmail.com</a></p>
+    <h1><button type="button" class="toggle" aria-label="Toggle dark mode" aria-pressed="false">B</button>en Kronfeld</h1>
+    <p>Aspiring health tech founder and content creator. Current student at Lehigh&nbsp;University.<br>
+      Reach out: <a href="mailto:ben.e.kronfeld@gmail.com">ben.e.kronfeld@gmail.com</a></p>
     <nav>
       <a href="https://www.linkedin.com/in/benkronfeld" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://www.instagram.com/bkron.ai" target="_blank" rel="noopener">Instagram</a>
@@ -26,7 +27,7 @@
   </main>
   <script>
     const root = document.documentElement;
-    const toggle = document.querySelector('.o');
+    const toggle = document.querySelector('.toggle');
     toggle.addEventListener('click', () => {
       root.classList.toggle('dark');
       toggle.setAttribute('aria-pressed', root.classList.contains('dark'));
