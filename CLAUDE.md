@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project state
 
-This is a greenfield repo. The only file present is `personal_website_project_spec.md`, which is the authoritative source for product requirements, content, markup structure, styling, and deployment. The site files described below have not been built yet. There is no git repository initialized.
+V1 is built and pushed. `personal_website_project_spec.md` remains the authoritative source for product requirements, content, markup structure, styling, and deployment. The site is a static `index.html` + `style.css` pair, initialized as a git repo with `main` tracking `https://github.com/benkronfeld/Personal-Website`.
+
+Two V1 items are still pending and are owned by the user: adding `assets/benkronfeldresumeoctober.pdf` (the Resume link 404s until it exists) and importing the repo into Vercel (no Vercel CLI is installed; deployment is done in the dashboard).
 
 When working here, treat the spec as the contract and implement against it — do not invent pages, sections, or links beyond what V1 scopes.
 
@@ -110,9 +112,11 @@ Content is also fixed by the spec: the bio is a 3-sentence draft that leads with
 
 ## Deployment
 
-`git init` → commit → create GitHub repo → push to `main` → import into Vercel (framework preset "Other", no build command, root output directory). Every subsequent push to `main` auto-deploys. The custom domain is added later, after V1 is live.
+Done: git repo initialized, `main` pushed to `https://github.com/benkronfeld/Personal-Website` (public).
 
-Verify against the spec's acceptance checklist (section 2.7) before calling the site done.
+Remaining: import the repo into Vercel (framework preset "Other", no build command, root output directory). After the import, every push to `main` auto-deploys. Once Vercel assigns the `*.vercel.app` URL, add `og:url` (and optionally `og:image`) to `index.html`. The custom domain is added later.
+
+Verify against the spec's acceptance checklist (section 2.7) before calling the site done. Live-URL items cannot be verified until the Vercel import happens.
 
 ## Branching
 - Always create a feature branch before starting major changes
