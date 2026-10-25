@@ -1,0 +1,57 @@
+html {
+  font-size: 112.5%; /* 18px base when the browser default is 16px */
+  background: #fff;
+  color: #000;
+}
+
+body {
+  margin: 0;
+  padding: 5rem 1.25rem;
+  background: #fff;
+  color: #000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 2.5rem;
+}
+
+nav {
+  line-height: 2;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  opacity: 0.6;
+}
+
+a:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 3rem 1.25rem;
+  }
+}
